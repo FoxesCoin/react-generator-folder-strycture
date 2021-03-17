@@ -2,29 +2,20 @@ const vscode = require("vscode");
 const fse = require("fs-extra");
 const fs = require("fs");
 const path = require("path");
-import { pascalCase, paramCase } from "change-case";
+import { paramCase, pascalCase } from 'change-case';
+import { TTemplate } from '../template';
 
-import { ITemplate } from "../template";
-
-interface IGenerateFileByTemplate<
-	F extends keyof ITemplate,
-	I extends keyof ITemplate[F]
-> {
+interface IGenerateFile {
 	dir: string;
-	folder: F;
-	file: I;
+	file: TTemplate;
 	fileName: string;
 	rootComponentName: string;
 }
 
-type TParseTemplate = <
-	F extends keyof ITemplate,
-	I extends keyof ITemplate[F]
->(params1: {
+type TParseTemplate = (utils: {
 	dir: string;
 	name: string;
-	folder: F;
-}) => (params2: { formate: string; file: I }) => Promise<void>;
+}) => (params: { formate: string; file: TTemplate }) => Promise<void>;
 
 const generateFile = (file: string, data: string) =>
 	new Promise((resolve) => {
@@ -32,32 +23,27 @@ const generateFile = (file: string, data: string) =>
 		resolve(output);
 	});
 
-export const getDirection = (uri: any, name: string) => {
-	const COMPONENT = paramCase(name);
-	let direction;
-
+export const getDirection = (uri: any): string => {
 	if (uri && fs.lstatSync(uri.fsPath).isDirectory()) {
-		direction = uri.fsPath;
+		return uri.fsPath;
 	} else if (uri) {
-		direction = path.dirname(uri.fsPath);
-	} else {
-		direction = vscode.workspace.rootPath;
+		return path.dirname(uri.fsPath);
 	}
-
-	const DIRECTION = `${direction}/${paramCase(COMPONENT)}`;
-	fse.mkdirsSync(DIRECTION);
-
-	return DIRECTION;
+	return vscode.workspace.rootPath;
 };
 
-export const generateFileByTemplate = async <
-	F extends keyof ITemplate,
-	I extends keyof ITemplate[F]
->(
-	params: IGenerateFileByTemplate<F, I>
-) => {
-	const { dir, folder, file, fileName, rootComponentName } = params;
-	const importData = await import(`../template/${folder}/${file}`);
+export const getFolderDirection = (uri: any, name: string) => {
+	const DIRECTION = getDirection(uri);
+	const COMPONENT = paramCase(name);
+	const PATH = `${DIRECTION}/${paramCase(COMPONENT)}`;
+	fse.mkdirsSync(PATH);
+
+	return PATH;
+};
+
+export const generateFileByTemplate = async (params: IGenerateFile) => {
+	const { dir, file, fileName, rootComponentName } = params;
+	const importData = await import(`../template/${file}`);
 
 	const COMPONENT = paramCase(rootComponentName);
 	const NAME = pascalCase(rootComponentName);

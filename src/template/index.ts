@@ -1,9 +1,6 @@
-export interface ITemplate {
-  react: {
-    "react.full": string;
-    "react.index": string;
-    "react.simple": string;
-    "react.state": string;
-    "react.styled": string;
-  };
-}
+export type TTemplate =
+	| "react.full"
+	| "react.index"
+	| "react.simple"
+	| "react.state"
+	| "react.styled";

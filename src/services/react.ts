@@ -1,8 +1,9 @@
-import * as vscode from "vscode";
+import { paramCase } from 'param-case';
+import * as vscode from 'vscode';
+import { generateFileByTemplate, getDirection, getFolderDirection, parseTemplate } from './folder';
 
-import { generateFileByTemplate, getDirection, parseTemplate } from "./folder";
-
-export const generateReact = async (uri: any, isFullReactTemplate: boolean) => {
+export type TGenerateType = "simple" | "styled" | "full";
+export const generateReact = async (uri: any, type: TGenerateType) => {
 	const inputName = await vscode.window.showInputBox({
 		prompt: "Enter component name",
 	});
@@ -13,23 +14,27 @@ export const generateReact = async (uri: any, isFullReactTemplate: boolean) => {
 		);
 	}
 
-	const dir = getDirection(uri, inputName);
-	const createFile = parseTemplate({ dir, folder: "react", name: inputName });
+	if (type === "simple") {
+		const dir = getDirection(uri);
+		return generateFileByTemplate({
+			dir,
+			file: "react.simple",
+			fileName: `${paramCase(inputName)}.tsx`,
+			rootComponentName: inputName,
+		});
+	}
 
+	const dir = getFolderDirection(uri, inputName);
+	const createFile = parseTemplate({ dir, name: inputName });
 	await generateFileByTemplate({
 		dir,
-		folder: "react",
 		rootComponentName: inputName,
 		file: "react.index",
 		fileName: "index.ts",
 	});
-	await createFile({
-		file: isFullReactTemplate ? "react.full" : "react.simple",
-		formate: "tsx",
-	});
-
-	if (isFullReactTemplate) {
+	await createFile({ file: "react.full", formate: "tsx" });
+	await createFile({ file: "react.styled", formate: "styled.ts" });
+	if (type === "full") {
 		await createFile({ file: "react.state", formate: "state.ts" });
-		await createFile({ file: "react.styled", formate: "styled.ts" });
 	}
 };

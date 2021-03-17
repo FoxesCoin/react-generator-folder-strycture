@@ -19,17 +19,25 @@
 		"commands": [
 			{
 				"command": "extension.generateReactTemplate",
-				"title": "Create React Template"
+				"title": "Generate Component"
+			},
+			{
+				"command": "extension.generateReactStyledTemplate",
+				"title": "Generate Styled Component"
 			},
 			{
 				"command": "extension.generateReactFullTemplate",
-				"title": "Create React Full Template"
+				"title": "Generate React Template"
 			}
 		],
 		"menus": {
 			"explorer/context": [
 				{
 					"command": "extension.generateReactTemplate",
+					"group": "react"
+				},
+				{
+					"command": "extension.generateReactStyledTemplate",
 					"group": "react"
 				},
 				{

@@ -1,12 +1,11 @@
 const REACT_SIMPLE_TEMPLATE = `
-import React, { FC } from 'react';
+import { TComponent } from 'typings/react';
 
 interface I{NAME}Props {
 
-  className?: string;
 }
 
-export const {NAME}: FC<I{NAME}Props> = (props) => {
+export const {NAME}: TComponent<I{NAME}Props> = (props) => {
   const { className } = props;
 
   return <div className={className}></div>
