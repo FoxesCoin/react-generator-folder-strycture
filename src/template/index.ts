@@ -3,4 +3,5 @@ export type TTemplate =
 	| "react.index"
 	| "react.simple"
 	| "react.state"
-	| "react.styled";
+	| "react.styled"
+	| "react.component-styled";

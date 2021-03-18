@@ -1,5 +1,6 @@
 import { paramCase } from 'param-case';
 import * as vscode from 'vscode';
+
 import { generateFileByTemplate, getDirection, getFolderDirection, parseTemplate } from './folder';
 
 export type TGenerateType = "simple" | "styled" | "full";
@@ -32,7 +33,10 @@ export const generateReact = async (uri: any, type: TGenerateType) => {
 		file: "react.index",
 		fileName: "index.ts",
 	});
-	await createFile({ file: "react.full", formate: "tsx" });
+	await createFile({
+		file: type === "styled" ? "react.component-styled" : "react.full",
+		formate: "tsx",
+	});
 	await createFile({ file: "react.styled", formate: "styled.ts" });
 	if (type === "full") {
 		await createFile({ file: "react.state", formate: "state.ts" });
