@@ -12,22 +12,28 @@
 	],
 	"activationEvents": [
 		"onCommand:extension.generateReactTemplate",
-		"onCommand:extension.generateReactFullTemplate"
+		"onCommand:extension.generateReactStyledTemplate",
+		"onCommand:extension.generateReactFullTemplate",
+		"onCommand:extension.generateRedux"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "extension.generateReactTemplate",
-				"title": "Generate Component"
+				"title": "Component"
 			},
 			{
 				"command": "extension.generateReactStyledTemplate",
-				"title": "Generate Styled Component"
+				"title": "Styled Component"
 			},
 			{
 				"command": "extension.generateReactFullTemplate",
-				"title": "Generate React Template"
+				"title": "React Template"
+			},
+			{
+				"command": "extension.generateRedux",
+				"title": "Redux"
 			}
 		],
 		"menus": {
@@ -43,6 +49,10 @@
 				{
 					"command": "extension.generateReactFullTemplate",
 					"group": "react"
+				},
+				{
+					"command": "extension.generateRedux",
+					"title": "redux"
 				}
 			]
 		}

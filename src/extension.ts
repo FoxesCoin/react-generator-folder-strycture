@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
+
 import { generateReact, TGenerateType } from './services/react';
+import { generateRedux } from './services/redux';
 
 interface IReactCommand {
 	type: TGenerateType;
@@ -28,6 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 		context.subscriptions.push(disposable);
 	});
+	vscode.commands.registerCommand("extension.generateRedux", generateRedux);
 }
 
 export function deactivate() {}

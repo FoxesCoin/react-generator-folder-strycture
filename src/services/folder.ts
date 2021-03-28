@@ -2,7 +2,8 @@ const vscode = require("vscode");
 const fse = require("fs-extra");
 const fs = require("fs");
 const path = require("path");
-import { paramCase, pascalCase } from 'change-case';
+import { constantCase, paramCase, pascalCase } from 'change-case';
+
 import { TTemplate } from '../template';
 
 interface IGenerateFile {
@@ -52,6 +53,7 @@ export const generateFileByTemplate = async (params: IGenerateFile) => {
 		.toString()
 		.trim()
 		.replace(/{COMPONENT}/g, COMPONENT)
+		.replace(/{CONSTANT}/g, constantCase(rootComponentName))
 		.replace(/{NAME}/g, NAME);
 
 	const PATH = `${dir}/${fileName}`;

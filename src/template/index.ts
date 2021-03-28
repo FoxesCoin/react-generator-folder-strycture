@@ -4,4 +4,7 @@ export type TTemplate =
 	| "react.simple"
 	| "react.state"
 	| "react.styled"
-	| "react.component-styled";
+	| "react.component-styled"
+	| "redux.actions"
+	| "redux.constants"
+	| "redux.reducer";
