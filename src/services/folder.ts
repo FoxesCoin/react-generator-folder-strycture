@@ -13,10 +13,17 @@ interface IGenerateFile {
 	rootComponentName: string;
 }
 
-type TParseTemplate = (utils: {
+interface IUtils {
 	dir: string;
 	name: string;
-}) => (params: { formate: string; file: TTemplate }) => Promise<void>;
+}
+
+interface IParameters {
+	formate: string;
+	file: TTemplate;
+}
+
+type TParseTemplate = (utils: IUtils) => (params: IParameters) => Promise<void>;
 
 const generateFile = (file: string, data: string) =>
 	new Promise((resolve) => {

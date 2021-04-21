@@ -1,10 +1,10 @@
-## Generate Files from react typescript structure
+# Generate Files from react typescript structure
 
-### Generate Component
+## Generate Component
 
 Create only .tsx file.
 
-### Generate Styled Component
+## Generate Styled Component
 
 Generate structure like
 
@@ -13,7 +13,7 @@ Generate structure like
   - component.tsx
   - component.styled.ts
 
-### Generate React Template
+## Generate React Template
 
 Generate structure like
 

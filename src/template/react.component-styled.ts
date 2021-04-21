@@ -3,10 +3,10 @@ import { TComponent } from 'typings/react';
 
 import { {NAME}Styled as Styled } from './{COMPONENT}.styled';
 
-interface I{NAME}Props {
+interface IProps {
 }
 
-export const {NAME}: TComponent<I{NAME}Props> = (props) => {
+export const {NAME}: TComponent<IProps> = (props) => {
   const { className } = props;
 
   return <Styled.Wrapper className={className}></Styled.Wrapper>

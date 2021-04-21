@@ -1,8 +1,8 @@
 const REDUX_CONSTANTS_TEMPLATE = `
-export interface I{NAME}Reducer  {};
+export interface I{NAME}Reducer {};
 
 export const {CONSTANT}_ACTIONS = <const>{
-  CLEAR: '@{CONSTANTS}/CLEAR',
+  clear: '@{NAME}/clear',
 };
 
 export const {CONSTANT}_DEFAULT: I{NAME}Reducer  = {};
